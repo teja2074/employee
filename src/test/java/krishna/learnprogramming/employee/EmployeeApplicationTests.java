@@ -1,13 +1,13 @@
 package krishna.learnprogramming.employee;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class EmployeeApplicationTests {
 
-	@Test
+/*	@Test
 	void contextLoads() {
-	}
+		System.out.println("Testing the app");
+	}*/
 
 }
