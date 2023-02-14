@@ -1,5 +1,6 @@
 package krishna.learnprogramming.employee.service;
 
+import krishna.learnprogramming.employee.exception.EmployeeNotFoundException;
 import krishna.learnprogramming.employee.model.Employee;
 import krishna.learnprogramming.employee.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,13 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Employee getEmployee(Integer id) {
+    public Employee getEmployee(Long id) {
+
         Optional<Employee> optionalEmp = employeeRepository.findById(id);
-        return optionalEmp.get();
+        if(optionalEmp.isPresent()){
+            return  optionalEmp.get();
+        }
+        return null;
     }
 
     @Override
@@ -30,19 +35,30 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Employee updateEmployee(Employee employee) {
-        Optional<Employee> employee1 = employeeRepository.findById(employee.getEmployeeId());
-       Employee employee2 = employee1.get();
-       employee2.setName(employee.getName());
+    public Employee updateEmployee(Employee employee) throws EmployeeNotFoundException {
+        Optional<Employee> employee1 = employeeRepository.findById(employee.getId());
 
-        employeeRepository.save(employee2);
+       if(employee1.isPresent()) {
+           Employee employee2 = employee1.get();
+           employee2.setName(employee.getName());
+           employeeRepository.save(employee2);
+           return employee2;
+       }else{
+           System.out.println("Please enter valid details"); //log.error();
+           throw new EmployeeNotFoundException("Employee not found for given employee id"+ employee.getEmployeeId());
 
-        return employee2;
+       }
+
     }
 
     @Override
-    public void deleteEmployee(Integer id) {
+    public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
 
+    }
+
+    @Override
+    public long getEmployeeCount() {
+        return employeeRepository.count();
     }
 }

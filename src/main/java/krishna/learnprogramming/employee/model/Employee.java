@@ -1,26 +1,33 @@
 package krishna.learnprogramming.employee.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.*;
 
+import javax.persistence.*;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table
 public class Employee {
 
     @Id
-    private int employeeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Long employeeId;
     private String name;
 
-    public Employee() {
-    }
+   /* public Employee() {
+    }*/
 
-    public Employee(int employeeId, String name) {
+ /*   public Employee(Long id, Long employeeId, String name) {
+        this.id = id ;
         this.employeeId = employeeId;
         this.name = name;
-    }
+    }*/
 
-    public int getEmployeeId() {
+  /*  public int getEmployeeId() {
         return employeeId;
     }
 
@@ -34,7 +41,7 @@ public class Employee {
 
     public void setName(String name) {
         this.name = name;
-    }
+    }*/
 
     @Override
     public String toString() {
