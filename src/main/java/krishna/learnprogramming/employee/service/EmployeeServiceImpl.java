@@ -40,6 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
        if(employee1.isPresent()) {
            Employee employee2 = employee1.get();
+           employee2.setEmployeeId(employee.getEmployeeId());
            employee2.setName(employee.getName());
            employeeRepository.save(employee2);
            return employee2;
